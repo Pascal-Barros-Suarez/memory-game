@@ -12,13 +12,23 @@ export default class Carta extends React.Component {
         super(props);
         this.number = props.number;
         this.id = props.id;
+
+        //el bind debe ir al final de l comstructor
+        
     }
 
     state = {
-        cardState: "backCard"
+        cardState: "hidden"
     }
 
     handleOnClick() {
+        if(this.state.cardState === "hidden"){
+        this.setState({cardState: "shown"})
+        }else if(this.state.cardState ==="shown"){
+            this.setState({cardState: "hidden"})
+        }else{
+            //resolved
+        }
 
     }
 
@@ -26,30 +36,30 @@ export default class Carta extends React.Component {
         let characterCard = '';
         let message = 'character';
         if (this.number === 0) {
-            if (this.state.cardState === "backCard") {
+            if (this.state.cardState === "hidden") {
                 characterCard = <img width='25%' height='30%' src={cardBack} alt={message} />;
-            } else if (this.state.cardState === "frontCard") {
+            } else if (this.state.cardState === "shown") {
                 characterCard = <img width='25%' height='30%' src={characterLuffy} alt={message} />;
             } else {
-                // resuelta
+                // resolved
             }
 
         } else if (this.number === 1) {
-            if (this.state.cardState === "backCard") {
+            if (this.state.cardState === "hidden") {
                 characterCard = <img width='25%' height='30%' src={cardBack} alt={message} />;
-            } else if (this.state.cardState === "frontCard") {
+            } else if (this.state.cardState === "shown") {
                 characterCard = <img width='25%' height='30%' src={characterZorro} alt={message} />;
             } else {
-                // resuelta
+                // resolved
             }
 
         } else {
-            if (this.state.cardState === "backCard") {
+            if (this.state.cardState === "hidden") {
                 characterCard = <img width='25%' height='30%' src={cardBack} alt={message} />;
-            } else if (this.state.cardState === "frontCard") {
+            } else if (this.state.cardState === "shown") {
                 characterCard = <img width='25%' height='30%' src={characterSanji} alt={message} />;
             } else {
-                // resuelta
+                // resolved
             }
         }
 
