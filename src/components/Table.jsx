@@ -41,6 +41,10 @@ export default class Tablero extends React.Component {
             this.state.cards.push({ id: i, number: j, })
             j++;
         }
+
+        this.setState({
+            cards: this.shuffle(this.state.cards)
+        });
     }
 
     render() {
@@ -48,7 +52,7 @@ export default class Tablero extends React.Component {
         return (
             <div>
                 <h1>Bienvenido</h1>
-                {this.shuffle(this.state.cards).map(c => {
+                {this.state.cards.map(c => {
                     return (
                         <Card key={c.id.toString()} id={c.id} number={c.number} ></Card>);
                 })
