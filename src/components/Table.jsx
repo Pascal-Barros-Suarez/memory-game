@@ -42,6 +42,7 @@ export default class Tablero extends React.Component {
             j++;
         }
 
+        //this.state.cards = this.shuffle(this.state.cards)
         this.setState({
             cards: this.shuffle(this.state.cards)
         });
