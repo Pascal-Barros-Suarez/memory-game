@@ -28,7 +28,7 @@ export default class Carta extends React.Component {
         if (this.state.cardState === "hidden") {
             card = <img width='25%' height='30%' src={cardBack} alt={message} onClick={this.handleOnClick} />;
         } else if (this.state.cardState === "shown") {
-            card = <img width='25%' height='30%' src={this.character} alt={message} onClick={this.handleOnClick} />;
+            card = <img width='25%' height='30%' src={character} alt={message} onClick={this.handleOnClick} />;
         } else {
             // resolved
         }
