@@ -1,6 +1,6 @@
 import React from "react";
-import characterLuffy from "../img/Luffy.webp";
-import characterZorro from "../img/Zorro.jfif";
+import characterLuffy from "../img/Luffy.jpg";
+import characterZorro from "../img/Zorro.jpg";
 import characterSanji from "../img/Sanji.jpg";
 import cardBack from "../img/back.jpg";
 
