@@ -13,6 +13,8 @@ export default class Tablero extends React.Component {
         this.generadorTablero();
 
         this.handleOnClickCard = this.handleOnClickCard.bind(this);
+        this.verifyCardPair = this.verifyCardPair.bind(this);
+
     }
 
     shuffle(array) {
@@ -60,8 +62,31 @@ export default class Tablero extends React.Component {
     verifyCardPair() {
         let cartaUp = this.state.cards.filter(c => c.cardState === "shown");
         if (cartaUp.length === 2) {
-            if (this.cartaUp[0].number === this.cartaUp[1].number) {
+            if (cartaUp[0].number === cartaUp[1].number) {
+                let resolveCards = this.state.cards.filter(c => {
+                    if (c.cardState === "shown") {
+                        c.cardState = "resolved";
+                    }
+                    return c;
+                });
 
+                this.setState({
+                    cards: resolveCards,
+                });
+
+            } else {
+                let hiddenCards = this.state.cards.filter(c => {
+                    if (c.cardState === "shown") {
+                        c.cardState = "hidden";
+                    }
+                    return c;
+                });
+
+                this.setState({
+                    cards: hiddenCards,
+                });
+                /*                 this.render();
+                                console.log(this.state.cards); */
             }
         }
     }
@@ -83,19 +108,29 @@ export default class Tablero extends React.Component {
         this.verifyCardPair();
 
     }
-
+    createCard() {
+        return this.state.cards.map(c => {
+            return (
+                <div className="col">
+                    <Card key={c.id.toString()} id={c.id} number={c.number} cardState={c.cardState} handleOnClickCard={this.handleOnClickCard}></Card>
+                </div>
+            );
+        })
+    }
 
     render() {
-
+        console.log(this.state.cards);
         return (
             <div>
                 <h1>Wellcome to my Memory Card Game</h1>
-                {this.state.cards.map(c => {
-                    return (
-                        <Card key={c.id.toString()} id={c.id} number={c.number} cardState={c.cardState} handleOnClickCard={this.handleOnClickCard}></Card>);
-                })
-                }
+
+                <div className="container">
+                    <div className="row">
+                        {this.createCard()}
+                    </div>
+                </div>
             </div>
+
         );
     }
 

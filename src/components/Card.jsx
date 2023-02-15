@@ -13,15 +13,17 @@ export default class Carta extends React.Component {
         super(props);
         this.number = props.number;
         this.id = props.id;
-        this.cardState = props.cardState;
+        //this.cardState = props.cardState;
+        console.log(props);
 
         this.state = {
-            cardState: "hidden",
+            cardState: this.props.cardState,
         }
 
         //el bind debe ir al final del constructor
         this.handleOnClick = this.handleOnClick.bind(this);
     }
+
 
 
     handleOnClick() {
@@ -42,6 +44,7 @@ export default class Carta extends React.Component {
         //console.log(this.state.cardState);
         this.props.handleOnClickCard(this.id, stateCard);
 
+
     }
 
 
@@ -51,18 +54,21 @@ export default class Carta extends React.Component {
         let message = 'character';
 
         if (this.state.cardState === "hidden") {
-            card = <img width='25%' height='30%' src={cardBack} alt={message} onClick={this.handleOnClick} />
+            card = <img width='95%' height='30%' src={cardBack} alt={message} onClick={this.handleOnClick} />
         } else if (this.state.cardState === "shown") {
-            card = <img width='25%' height='30%' src={character} alt={message} onClick={this.handleOnClick} />;
+            card = <img width='95%' height='30%' src={character} alt={message} onClick={this.handleOnClick} />;
         } else {
             // resolved
+            card = <img width='95%' height='30%' src={character} alt={message} />;
         }
         return card;
     }
 
     render() {
         let characterCard = '';
-
+        //let nuevo= this.props.cardState;
+        //this.setState({ cardState: this.props.cardState }); 
+        //console.log(this.props.id,this.state.cardState);
         if (this.number === 0) {
             characterCard = this.createCharacter(characterLuffy);
 
