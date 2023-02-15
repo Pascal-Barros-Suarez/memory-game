@@ -50,6 +50,22 @@ export default class Tablero extends React.Component {
         });
     }
 
+    WinGame() {
+        let win = this.state.cards.every(c => c.cardState = "resolved");
+        if (win) {
+            console.log('win');
+        }
+    }
+
+    verifyCardPair() {
+        let cartaUp = this.state.cards.filter(c => c.cardState === "shown");
+        if (cartaUp.length === 2) {
+            if (this.cartaUp[0].number === this.cartaUp[1].number) {
+
+            }
+        }
+    }
+
     handleOnClickCard(id, stateCard) {
         console.log(id, stateCard);
 
@@ -64,7 +80,8 @@ export default class Tablero extends React.Component {
             cards: tempCards,
         });
 
-        console.log(this.state.cards);
+        this.verifyCardPair();
+
     }
 
 
@@ -72,7 +89,7 @@ export default class Tablero extends React.Component {
 
         return (
             <div>
-                <h1>Bienvenido</h1>
+                <h1>Wellcome to my Memory Card Game</h1>
                 {this.state.cards.map(c => {
                     return (
                         <Card key={c.id.toString()} id={c.id} number={c.number} cardState={c.cardState} handleOnClickCard={this.handleOnClickCard}></Card>);
