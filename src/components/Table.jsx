@@ -53,7 +53,7 @@ export default class Tablero extends React.Component {
     }
 
     WinGame() {
-        let win = this.state.cards.every(c => c.cardState = "resolved");
+        let win = this.state.cards.every(c => c.cardState === "resolved");
         if (win) {
             console.log('win');
         }
@@ -85,14 +85,15 @@ export default class Tablero extends React.Component {
                 this.setState({
                     cards: hiddenCards,
                 });
-                /*                 this.render();
-                                console.log(this.state.cards); */
+
             }
+            this.WinGame();
         }
     }
 
+
     handleOnClickCard(id, stateCard) {
-        console.log(id, stateCard);
+        //console.log(id, stateCard);
 
         let tempCards = this.state.cards.map(c => {
             if (c.id === id) {
@@ -108,30 +109,27 @@ export default class Tablero extends React.Component {
         this.verifyCardPair();
 
     }
-    createCard() {
-        return this.state.cards.map(c => {
-            return (
-                <div className="col">
-                    <Card key={c.id.toString()} id={c.id} number={c.number} cardState={c.cardState} handleOnClickCard={this.handleOnClickCard}></Card>
-                </div>
-            );
-        })
-    }
+
 
     render() {
-        console.log(this.state.cards);
+        //console.log(this.state.cards);
         return (
             <div>
                 <h1>Wellcome to my Memory Card Game</h1>
 
-                <div className="container">
+                <div className="container-fluid">
                     <div className="row">
-                        {this.createCard()}
+                        {this.state.cards.map(c => {
+                            return (
+                                <div className="col">
+                                    <Card key={c.id.toString()} id={c.id} number={c.number} cardState={c.cardState} handleOnClickCard={this.handleOnClickCard}></Card>
+                                </div>
+                            );
+                        })}
+
                     </div>
                 </div>
             </div>
-
-        );
+        )
     }
-
 }

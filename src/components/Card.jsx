@@ -14,7 +14,7 @@ export default class Carta extends React.Component {
         this.number = props.number;
         this.id = props.id;
         //this.cardState = props.cardState;
-        console.log(props);
+        // console.log(props);
 
         this.state = {
             cardState: this.props.cardState,
@@ -30,11 +30,11 @@ export default class Carta extends React.Component {
         let stateCard;
         if (this.state.cardState === "hidden") {
             //this.state.cardState = "shown" ;
-            this.setState({ cardState: "shown" });
+            //his.setState({ cardState: "shown" });
             stateCard = 'shown';
 
         } else if (this.state.cardState === "shown") {
-            this.setState({ cardState: "hidden" });
+            // this.setState({ cardState: "hidden" });
             stateCard = 'hidden';
 
         } else {
@@ -47,19 +47,23 @@ export default class Carta extends React.Component {
 
     }
 
-
+    componentDidUpdate(props, prevProps) {
+        if (this.props.cardState !== prevProps.cardState) {
+            this.setState({ cardState: props.cardState });
+        }
+    }
 
     createCharacter(character) {
         let card = '';
         let message = 'character';
 
         if (this.state.cardState === "hidden") {
-            card = <img width='95%' height='30%' src={cardBack} alt={message} onClick={this.handleOnClick} />
+            card = <img width='95%' height='60%' src={cardBack} alt={message} onClick={this.handleOnClick} />
         } else if (this.state.cardState === "shown") {
-            card = <img width='95%' height='30%' src={character} alt={message} onClick={this.handleOnClick} />;
+            card = <img width='95%' height='60%' src={character} alt={message} onClick={this.handleOnClick} />
         } else {
             // resolved
-            card = <img width='95%' height='30%' src={character} alt={message} />;
+            card = <img width='95%' height='60%' src={character} alt={message} />
         }
         return card;
     }
