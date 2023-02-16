@@ -53,61 +53,80 @@ export default class Tablero extends React.Component {
     }
 
     WinGame() {
-        let win = this.state.cards.every(c => c.cardState === "resolved");
-        if (win) {
-            console.log('win');
-        }
+        console.log('win');
     }
 
     verifyCardPair() {
+
         let cartaUp = this.state.cards.filter(c => c.cardState === "shown");
+
         if (cartaUp.length === 2) {
             if (cartaUp[0].number === cartaUp[1].number) {
-                let resolveCards = this.state.cards.filter(c => {
+                let resolveCards = this.state.cards.map(c => {
                     if (c.cardState === "shown") {
                         c.cardState = "resolved";
                     }
                     return c;
                 });
 
+                console.log(this.state.cards);
                 this.setState({
                     cards: resolveCards,
                 });
 
             } else {
-                let hiddenCards = this.state.cards.filter(c => {
-                    if (c.cardState === "shown") {
-                        c.cardState = "hidden";
-                    }
-                    return c;
-                });
+                console.log(this.state.cards.filter(c => c.cardState === "shown").length);
 
-                this.setState({
+                //let timeForShowCard = setTimeout(() => {
+                setTimeout(() => {
+                    let hiddenCards = this.state.cards.map(c => {
+                        if (c.cardState === "shown") {
+                            c.cardState = "hidden";
+                        }
+                        return c;
+                    });
+                    this.setState({
+                        cards: hiddenCards,
+                    })
+                }, 3000);
+
+                //clearTimeout(timeForShowCard);
+
+                /* this.setState({
                     cards: hiddenCards,
-                });
+                }); */
 
             }
-            this.WinGame();
+            let win = this.state.cards.every(c => c.cardState === "resolved");
+            if (win) {
+                this.WinGame();
+            }
         }
     }
 
 
     handleOnClickCard(id, stateCard) {
         //console.log(id, stateCard);
+        //console.log(cartaUp.length);
+        let cardUp = this.state.cards.filter(c => c.cardState === "shown");
+        if (cardUp.length < 2) {
 
-        let tempCards = this.state.cards.map(c => {
-            if (c.id === id) {
-                c.cardState = stateCard;
+            let tempCards = this.state.cards.map(c => {
+                if (c.id === id) {
+                    c.cardState = stateCard;
+                }
+                return c;
+            });
+            //console.log(this.state.cards);
+
+            this.setState({
+                cards: tempCards,
+            });
+
+            if (cardUp.length === 1) {
+                this.verifyCardPair();
             }
-            return c;
-        });
-
-        this.setState({
-            cards: tempCards,
-        });
-
-        this.verifyCardPair();
-
+        }
     }
 
 
@@ -121,7 +140,7 @@ export default class Tablero extends React.Component {
                     <div className="row">
                         {this.state.cards.map(c => {
                             return (
-                                <div className="col">
+                                <div key={c.id.toString()} className="col">
                                     <Card key={c.id.toString()} id={c.id} number={c.number} cardState={c.cardState} handleOnClickCard={this.handleOnClickCard}></Card>
                                 </div>
                             );

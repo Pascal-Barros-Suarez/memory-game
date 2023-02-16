@@ -5,21 +5,9 @@ import characterSanji from "../img/Sanji.jpg";
 import cardBack from "../img/back.jpg";
 
 export default class Carta extends React.Component {
-    id;
-    number;
-    cardState;
 
     constructor(props) {
         super(props);
-        this.number = props.number;
-        this.id = props.id;
-        //this.cardState = props.cardState;
-        // console.log(props);
-
-        this.state = {
-            cardState: this.props.cardState,
-        }
-
         //el bind debe ir al final del constructor
         this.handleOnClick = this.handleOnClick.bind(this);
     }
@@ -28,55 +16,54 @@ export default class Carta extends React.Component {
 
     handleOnClick() {
         let stateCard;
-        if (this.state.cardState === "hidden") {
-            //this.state.cardState = "shown" ;
-            //his.setState({ cardState: "shown" });
+        if (this.props.cardState === "hidden") {
             stateCard = 'shown';
 
-        } else if (this.state.cardState === "shown") {
-            // this.setState({ cardState: "hidden" });
+        } else if (this.props.cardState === "shown") {
             stateCard = 'hidden';
 
-        } else {
+        } /* else {
             //resolved
             //stateCard = 'resolved';
-        }
-        //console.log(this.state.cardState);
-        this.props.handleOnClickCard(this.id, stateCard);
+        } */
+        //console.log(this.props.cardState);
+        this.props.handleOnClickCard(this.props.id, stateCard);
 
 
     }
 
-    componentDidUpdate(props, prevProps) {
-        if (this.props.cardState !== prevProps.cardState) {
-            this.setState({ cardState: props.cardState });
+    /* componentDidUpdate(props, prevProps) {
+        console.log(prevProps);
+        if (prevProps != null) {
+            if (this.props.cardState !== prevProps.cardState) {
+                this.cardState = props.cardState;
+
+            }
         }
-    }
+    } */
 
     createCharacter(character) {
         let card = '';
         let message = 'character';
 
-        if (this.state.cardState === "hidden") {
-            card = <img width='95%' height='60%' src={cardBack} alt={message} onClick={this.handleOnClick} />
-        } else if (this.state.cardState === "shown") {
-            card = <img width='95%' height='60%' src={character} alt={message} onClick={this.handleOnClick} />
+        if (this.props.cardState === "hidden") {
+            card = <img className="img-thumbnail rounded" src={cardBack} alt={message} onClick={this.handleOnClick} />
+        } else if (this.props.cardState === "shown") {
+            card = <img className="img-thumbnail rounded" src={character} alt={message} onClick={this.handleOnClick} />
         } else {
             // resolved
-            card = <img width='95%' height='60%' src={character} alt={message} />
+            card = <img className="img-thumbnail rounded" src={character} alt={message} />
         }
         return card;
     }
 
     render() {
         let characterCard = '';
-        //let nuevo= this.props.cardState;
-        //this.setState({ cardState: this.props.cardState }); 
-        //console.log(this.props.id,this.state.cardState);
-        if (this.number === 0) {
+
+        if (this.props.number === 0) {
             characterCard = this.createCharacter(characterLuffy);
 
-        } else if (this.number === 1) {
+        } else if (this.props.number === 1) {
             characterCard = this.createCharacter(characterZorro);
 
         } else {
