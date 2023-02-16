@@ -12,35 +12,18 @@ export default class Carta extends React.Component {
         this.handleOnClick = this.handleOnClick.bind(this);
     }
 
-
-
     handleOnClick() {
+        //console.log(this.props.cardState);
+
         let stateCard;
         if (this.props.cardState === "hidden") {
             stateCard = 'shown';
-
         } else if (this.props.cardState === "shown") {
             stateCard = 'hidden';
-
-        } /* else {
-            //resolved
-            //stateCard = 'resolved';
-        } */
-        //console.log(this.props.cardState);
-        this.props.handleOnClickCard(this.props.id, stateCard);
-
-
-    }
-
-    /* componentDidUpdate(props, prevProps) {
-        console.log(prevProps);
-        if (prevProps != null) {
-            if (this.props.cardState !== prevProps.cardState) {
-                this.cardState = props.cardState;
-
-            }
         }
-    } */
+
+        this.props.handleOnClickCard(this.props.id, stateCard);
+    }
 
     createCharacter(character) {
         let card = '';
@@ -51,7 +34,6 @@ export default class Carta extends React.Component {
         } else if (this.props.cardState === "shown") {
             card = <img className="img-thumbnail rounded" src={character} alt={message} onClick={this.handleOnClick} />
         } else {
-            // resolved
             card = <img className="img-thumbnail rounded" src={character} alt={message} />
         }
         return card;

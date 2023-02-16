@@ -3,7 +3,6 @@ import Card from "./Card";
 
 export default class Tablero extends React.Component {
     maxCards = 6;
-
     state = {
         cards: []
     }
@@ -12,6 +11,7 @@ export default class Tablero extends React.Component {
         super(props);
         this.generadorTablero();
 
+        //binds
         this.handleOnClickCard = this.handleOnClickCard.bind(this);
         this.verifyCardPair = this.verifyCardPair.bind(this);
 
@@ -22,7 +22,6 @@ export default class Tablero extends React.Component {
 
         // Mientras queden elementos a mezclar...
         while (0 !== currentIndex) {
-
             // Seleccionar un elemento sin mezclar...
             randomIndex = Math.floor(Math.random() * currentIndex);
             currentIndex -= 1;
@@ -32,7 +31,6 @@ export default class Tablero extends React.Component {
             array[currentIndex] = array[randomIndex];
             array[randomIndex] = temporaryValue;
         }
-
         return array;
     }
 
@@ -69,13 +67,11 @@ export default class Tablero extends React.Component {
                     return c;
                 });
 
-                console.log(this.state.cards);
                 this.setState({
                     cards: resolveCards,
                 });
 
             } else {
-                console.log(this.state.cards.filter(c => c.cardState === "shown").length);
 
                 //let timeForShowCard = setTimeout(() => {
                 setTimeout(() => {
@@ -89,12 +85,7 @@ export default class Tablero extends React.Component {
                         cards: hiddenCards,
                     })
                 }, 3000);
-
                 //clearTimeout(timeForShowCard);
-
-                /* this.setState({
-                    cards: hiddenCards,
-                }); */
 
             }
             let win = this.state.cards.every(c => c.cardState === "resolved");
@@ -107,17 +98,14 @@ export default class Tablero extends React.Component {
 
     handleOnClickCard(id, stateCard) {
         //console.log(id, stateCard);
-        //console.log(cartaUp.length);
         let cardUp = this.state.cards.filter(c => c.cardState === "shown");
         if (cardUp.length < 2) {
-
             let tempCards = this.state.cards.map(c => {
                 if (c.id === id) {
                     c.cardState = stateCard;
                 }
                 return c;
             });
-            //console.log(this.state.cards);
 
             this.setState({
                 cards: tempCards,
@@ -131,7 +119,6 @@ export default class Tablero extends React.Component {
 
 
     render() {
-        //console.log(this.state.cards);
         return (
             <div>
                 <h1>Wellcome to my Memory Card Game</h1>
@@ -145,7 +132,6 @@ export default class Tablero extends React.Component {
                                 </div>
                             );
                         })}
-
                     </div>
                 </div>
             </div>
