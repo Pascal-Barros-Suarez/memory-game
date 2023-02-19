@@ -52,6 +52,7 @@ export default class Tablero extends React.Component {
 
     WinGame() {
         console.log('win');
+        this.props.knowIfWin(true);
     }
 
     verifyCardPair() {
@@ -84,7 +85,7 @@ export default class Tablero extends React.Component {
                     this.setState({
                         cards: hiddenCards,
                     })
-                }, 3000);
+                }, 2000);
                 //clearTimeout(timeForShowCard);
 
             }
@@ -120,19 +121,15 @@ export default class Tablero extends React.Component {
 
     render() {
         return (
-            <div>
-                <h1>Wellcome to my Memory Card Game</h1>
-
-                <div className="container-fluid">
-                    <div className="row">
-                        {this.state.cards.map(c => {
-                            return (
-                                <div key={c.id.toString()} className="col">
-                                    <Card key={c.id.toString()} id={c.id} number={c.number} cardState={c.cardState} handleOnClickCard={this.handleOnClickCard}></Card>
-                                </div>
-                            );
-                        })}
-                    </div>
+            <div className="container-fluid">
+                <div className="row">
+                    {this.state.cards.map(c => {
+                        return (
+                            <div key={c.id.toString()} className="col">
+                                <Card key={c.id.toString()} id={c.id} number={c.number} cardState={c.cardState} handleOnClickCard={this.handleOnClickCard}></Card>
+                            </div>
+                        );
+                    })}
                 </div>
             </div>
         )
